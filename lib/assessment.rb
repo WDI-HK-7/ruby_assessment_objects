@@ -2,15 +2,13 @@
 #
 # Happy coding!!
 
+#Person
 class Person
   attr_accessor :first_name, :last_name, :full_name
 end
 
-
-
+#Player
 class Player < Person
-  @@attacker_strength
-
   def initialize(health = 20, strength = 5, alive = true)
     @health = health
     @strength = strength
@@ -24,18 +22,18 @@ class Player < Person
 
     if @health <= 0
       @alive = false
-      puts "You're Dead!"
+      puts "#{self.class}, watch out! You're about to die!"
     end
   end
 
   def attack(player)
-    @@attackerstrength = self.strength
-    player.take_damage(@@attackerstrength)
+    @attackerstrength = self.strength
+    player.take_damage(@attackerstrength)
+    puts "#{self.class} Attacks! #{player.class} Health: #{player.health}, Alive: #{player.alive}"
   end
 end
 
-
-
+#Knight
 class Knight < Player
   def initialize(health = 50, strength = 7)
     super
@@ -44,8 +42,7 @@ class Knight < Player
   end
 end
 
-
-
+#Wizard
 class Wizard < Player
   def initialize(health = 20, strength = 75)
     super
@@ -58,20 +55,9 @@ end
 dimple = Wizard.new
 fer = Knight.new
 
-puts "Initial Dimple: #{dimple.health}, #{dimple.strength}, #{dimple.alive}"
-puts "Initial Fer: #{fer.health}, #{fer.strength}, #{fer.alive}"
-
-
-#Wizard Attacks Knight
-  puts "Dimple Attacks Fer"
-  dimple.attack(fer)
-  puts "Fer: #{fer.health}, #{fer.strength}, #{fer.alive}"
-
 #Knight Attacks Wizard
-  # puts "Fer Attacks Dimple"
-  # fer.attack(dimple)
-  # puts "Dimple: #{dimple.health}, #{dimple.strength}, #{dimple.alive}"
-  #   fer.attack(dimple)
-  # puts "Dimple: #{dimple.health}, #{dimple.strength}, #{dimple.alive}"
-  #   fer.attack(dimple)
-  # puts "Dimple: #{dimple.health}, #{dimple.strength}, #{dimple.alive}"
+fer.attack(dimple)
+fer.attack(dimple)
+
+#Wizard Attacks Wizard
+dimple.attack(fer)
